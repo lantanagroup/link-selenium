@@ -1,0 +1,47 @@
+<suite name="BrowserStack Suite" >
+
+   <test verbose="2" preserve-order="true" name="Chrome browser test" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="chrome_91"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_CovidReport_Test">
+            </class>
+        </classes>
+    </test>
+
+<!--    <test verbose="2" preserve-order="true" name="Firefox browser test">-->
+<!--        <parameter name = "source" value="browserstack"/>-->
+<!--        <parameter name = "browser" value="firefox"/>-->
+<!--        <classes>-->
+<!--            <class name="com.nhsn.testcases.TC02_MedicationAdministration_Test">-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test verbose="2" preserve-order="true" name="Edge browser test">-->
+<!--        <parameter name = "source" value="browserstack"/>-->
+<!--        <parameter name = "browser" value="edge"/>-->
+<!--        <classes>-->
+<!--            <class name="com.nhsn.testcases.TC03_AdmissionsFromSkilled_Test">-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test verbose="2" preserve-order="true" name="IE browser test">-->
+<!--        <parameter name = "source" value="browserstack"/>-->
+<!--        <parameter name = "browser" value="ie"/>-->
+<!--        <classes>-->
+<!--            <class name="com.nhsn.testcases.TC04_COVID_19_RiskFactor_Test">-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test verbose="2" preserve-order="true" name="Chrome browser 1 test">-->
+<!--        <parameter name = "source" value="browserstack"/>-->
+<!--        <parameter name = "browser" value="Windows8_chrome_91"/>-->
+<!--        <classes>-->
+<!--            <class name="com.nhsn.testcases.TC05_NHSNConfirmed_Test">-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
+</suite>

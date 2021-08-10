@@ -1,0 +1,42 @@
+<suite name="Local Running Suite" >
+
+        <test verbose="2" preserve-order="true" name="Dev_Smoke_Local_Chrome" >
+            <parameter name = "source" value="local"/>
+            <parameter name = "environment" value="dev"/>
+            <parameter name = "browser" value="chrome"/>
+            <classes>
+                <class name="com.nhsn.testcases.TC06_SmokeTest">
+                </class>
+<!--                <class name="com.nhsn.testcases.TC02_MedicationAdministration_Test"></class>-->
+<!--                <class name="com.nhsn.testcases.TC03_AdmissionsFromSkilled_Test"></class>-->
+<!--                <class name="com.nhsn.testcases.TC04_COVID_19_RiskFactor_Test"></class>-->
+<!--                <class name="com.nhsn.testcases.TC05_NHSNConfirmed_Test"></class>-->
+            </classes>
+        </test>
+
+<!--    <test verbose="2" preserve-order="true" name="Demo_Smoke_Local_Chrome" >-->
+<!--        <parameter name = "source" value="local"/>-->
+<!--        <parameter name = "environment" value="demo"/>-->
+<!--        <parameter name = "browser" value="chrome"/>-->
+<!--        <classes>-->
+<!--            <class name="com.nhsn.testcases.TC06_SmokeTest"></class>-->
+<!--            &lt;!&ndash;                <class name="com.nhsn.testcases.TC02_MedicationAdministration_Test"></class>&ndash;&gt;-->
+<!--            &lt;!&ndash;                <class name="com.nhsn.testcases.TC03_AdmissionsFromSkilled_Test"></class>&ndash;&gt;-->
+<!--            &lt;!&ndash;                <class name="com.nhsn.testcases.TC04_COVID_19_RiskFactor_Test"></class>&ndash;&gt;-->
+<!--            &lt;!&ndash;                <class name="com.nhsn.testcases.TC05_NHSNConfirmed_Test"></class>&ndash;&gt;-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test verbose="2" preserve-order="true" name="Firefox browser test" >-->
+<!--        <parameter name = "source" value="local"/>-->
+<!--        <parameter name = "browser" value="firefox"/>-->
+<!--        <classes>-->
+<!--            <class name="com.nhsn.testcases.TC01_CovidReport_Test"></class>-->
+<!--            <class name="com.nhsn.testcases.TC02_MedicationAdministration_Test"></class>-->
+<!--            <class name="com.nhsn.testcases.TC03_AdmissionsFromSkilled_Test"></class>-->
+<!--            <class name="com.nhsn.testcases.TC04_COVID_19_RiskFactor_Test"></class>-->
+<!--            <class name="com.nhsn.testcases.TC05_NHSNConfirmed_Test"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+</suite>

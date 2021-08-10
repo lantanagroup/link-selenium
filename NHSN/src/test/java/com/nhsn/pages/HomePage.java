@@ -67,6 +67,7 @@ public class HomePage {
             wait.until(ExpectedConditions.alertIsPresent());
             Alert alert = driver.switchTo().alert();
             alert.accept();
+            System.out.println("Accepted the Alert");
             return true;
         }
         catch (Exception Ex)

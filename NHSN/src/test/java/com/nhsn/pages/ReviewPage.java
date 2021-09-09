@@ -48,6 +48,12 @@ public class ReviewPage {
 
     }
 
+    public void clickOnGenerateButton()
+    {
+        driver.findElement(By.xpath("//a[text()='Generate']")).click();
+        System.out.println("Clicked on Generate Button");
+    }
+
 
 
 }

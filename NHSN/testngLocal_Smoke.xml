@@ -5,7 +5,7 @@
             <parameter name = "environment" value="dev"/>
             <parameter name = "browser" value="chrome"/>
             <classes>
-                <class name="com.nhsn.testcases.TC06_SmokeTest">
+                <class name="com.nhsn.testcases.TC01_SmokeTest">
                 </class>
 <!--                <class name="com.nhsn.testcases.TC02_MedicationAdministration_Test"></class>-->
 <!--                <class name="com.nhsn.testcases.TC03_AdmissionsFromSkilled_Test"></class>-->
@@ -19,7 +19,7 @@
 <!--        <parameter name = "environment" value="demo"/>-->
 <!--        <parameter name = "browser" value="chrome"/>-->
 <!--        <classes>-->
-<!--            <class name="com.nhsn.testcases.TC06_SmokeTest"></class>-->
+<!--            <class name="com.nhsn.testcases.TC01_SmokeTest"></class>-->
 <!--            &lt;!&ndash;                <class name="com.nhsn.testcases.TC02_MedicationAdministration_Test"></class>&ndash;&gt;-->
 <!--            &lt;!&ndash;                <class name="com.nhsn.testcases.TC03_AdmissionsFromSkilled_Test"></class>&ndash;&gt;-->
 <!--            &lt;!&ndash;                <class name="com.nhsn.testcases.TC04_COVID_19_RiskFactor_Test"></class>&ndash;&gt;-->

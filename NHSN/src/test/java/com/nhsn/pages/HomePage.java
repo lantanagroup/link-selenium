@@ -53,9 +53,9 @@ public class HomePage {
 
     public String getReportId(String reportName)
     {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Report Id:')]")));
-        WebElement reportIdElement = driver.findElement(By.xpath("//p[contains(text(),'Report Id:')]"));
-        String reportId = reportIdElement.getText().split(":")[1].trim();
+        String currentURL = driver.getCurrentUrl();
+        String reportId = currentURL.split("https://dev.nhsnlink.org/review/")[1];
+        System.out.println(currentURL.split("https://dev.nhsnlink.org/review/")[1]);
         System.out.println("Report id for Report Name - "+reportName+"- "+ reportId);
         return reportId;
     }
@@ -80,7 +80,7 @@ public class HomePage {
         driver.findElement(By.xpath("//button[@id='userDropDown']")).click();
         System.out.println("Clicked On User dropdown to logout");
 
-        driver.findElement(By.xpath("//button[text()='Logout']")).click();
+        driver.findElement(By.xpath("//button[contains(text(),'Logout')]")).click();
         System.out.println("Clicked On Logout button");
     }
 
@@ -89,9 +89,81 @@ public class HomePage {
         selectReport(reportName);
         selectYesterdayDate();
         clickOnGenerateReportButton();
-        getReportId(reportName);
-        logout();
     }
+
+    public void discardReportOnReviewScreen()
+    {
+        driver.findElement(By.xpath("//button[text()='Discard']")).click();
+        System.out.println("Clicked on Discard Button");
+        acceptTheAlert();
+    }
+
+    public void submitTheReport()
+    {
+        clickOnSubmitButton();
+        acceptTheAlert();
+        verifyReportSavedText();
+        verifyReportSubmittedText();
+       // tooltipValueOnHomeScreen();
+    }
+
+    public void clickOnSubmitButton()
+    {
+        driver.findElement(By.xpath("//button[text()='Submit']")).click();
+        System.out.println("Clicked On Submmit button");
+    }
+
+    public boolean acceptTheAlert()
+    {
+        try
+        {
+            wait.until(ExpectedConditions.alertIsPresent());
+            Alert alert = driver.switchTo().alert();
+            alert.accept();
+            System.out.println("Accepted the Alert");
+            return true;
+        }
+        catch (Exception Ex)
+        {
+            return false;
+        }
+    }
+
+    public void verifyReportSavedText()
+    {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Report saved!']")));
+        System.out.println("Report Saved Message displayed on Top Right hand side");
+    }
+
+    public void verifyReportSubmittedText()
+    {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Report sent!']")));
+        System.out.println("Report Sent Message displayed on Top Right hand side");
+    }
+
+    public void verifyStatus(String status)
+    {
+
+    }
+
+    public void NavigateToReviewScree()
+    {
+        driver.findElement(By.xpath("//a[text()='Review']")).click();
+        System.out.println("Clicked On Review button");
+    }
+
+    public void tooltipValueOnHomeScreen()
+    {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='input-group']/ngb-tooltip-window[@role='tooltip']")));
+        System.out.println(driver.findElement(By.xpath("//div[@class='input-group']/ngb-tooltip-window[@role='tooltip']")).getText());
+    }
+
+    public void tooltipValueOnReviewScreen()
+    {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='input-group']/ngb-tooltip-window[@role='tooltip']")));
+        System.out.println(driver.findElement(By.xpath("//div[@class='input-group']/ngb-tooltip-window[@role='tooltip']")).getText());
+    }
+
 
     public void countNoOfReports(int count) throws InterruptedException {
         clickOnSelectDropdown();
@@ -123,4 +195,38 @@ public class HomePage {
         driver.findElement(By.xpath("//a[text()='Review']")).click();
         System.out.println("Clicked on the Review Tab");
     }
+
+    public void clickOnGetHelpOption()
+    {
+        driver.findElement(By.xpath("//button[@id='userDropDown']")).click();
+        System.out.println("Clicked On User dropdown to logout");
+
+        driver.findElement(By.xpath("//a[contains(text(),'Get Help')]")).click();
+        System.out.println("Clicked On Get Help Option");
+    }
+
+    public void verifyReportStatusOnHomePage()
+    {
+
+    }
+
+    public void enterNote(String note)
+    {
+        driver.findElement(By.xpath("//textarea[@id='report-notes']")).sendKeys(note);
+        System.out.println("Entered the Note as - "+ note);
+    }
+
+    public void compareNoteText(String expected)
+    {
+        // Note text web element properties needs to be changed
+    }
+
+    public void clickOnSaveButton()
+    {
+        driver.findElement(By.xpath("//button[text()='Save']")).click();
+        System.out.println("Clicked On Save Button");
+    }
+
+
+
 }

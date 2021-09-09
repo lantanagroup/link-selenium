@@ -1,47 +1,218 @@
 <suite name="BrowserStack Suite" >
 
-   <test verbose="2" preserve-order="true" name="Chrome browser test" >
+   <!--<test verbose="2" preserve-order="true" name="Win10_Chrome_latest" >
         <parameter name = "source" value="browserstack"/>
-        <parameter name = "browser" value="chrome_91"/>
+        <parameter name = "browser" value="Win10_Chrome_latest"/>
         <classes>
-            <class name="com.nhsn.testcases.TC01_CovidReport_Test">
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
             </class>
         </classes>
     </test>
 
-<!--    <test verbose="2" preserve-order="true" name="Firefox browser test">-->
-<!--        <parameter name = "source" value="browserstack"/>-->
-<!--        <parameter name = "browser" value="firefox"/>-->
-<!--        <classes>-->
-<!--            <class name="com.nhsn.testcases.TC02_MedicationAdministration_Test">-->
-<!--            </class>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test verbose="2" preserve-order="true" name="Win10_IE_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="Win10_IE_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>
 
-<!--    <test verbose="2" preserve-order="true" name="Edge browser test">-->
-<!--        <parameter name = "source" value="browserstack"/>-->
-<!--        <parameter name = "browser" value="edge"/>-->
-<!--        <classes>-->
-<!--            <class name="com.nhsn.testcases.TC03_AdmissionsFromSkilled_Test">-->
-<!--            </class>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test verbose="2" preserve-order="true" name="Win10_Edge_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="Win10_Edge_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>
 
-<!--    <test verbose="2" preserve-order="true" name="IE browser test">-->
-<!--        <parameter name = "source" value="browserstack"/>-->
-<!--        <parameter name = "browser" value="ie"/>-->
-<!--        <classes>-->
-<!--            <class name="com.nhsn.testcases.TC04_COVID_19_RiskFactor_Test">-->
-<!--            </class>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test verbose="2" preserve-order="true" name="Win10_Firefox_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="Win10_Firefox_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>-->
 
-<!--    <test verbose="2" preserve-order="true" name="Chrome browser 1 test">-->
-<!--        <parameter name = "source" value="browserstack"/>-->
-<!--        <parameter name = "browser" value="Windows8_chrome_91"/>-->
-<!--        <classes>-->
-<!--            <class name="com.nhsn.testcases.TC05_NHSNConfirmed_Test">-->
-<!--            </class>-->
-<!--        </classes>-->
-<!--    </test>-->
+   <!-- <test verbose="2" preserve-order="true" name="Win8.1_Chrome_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="Win8.1_Chrome_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Win8.1_IE_Latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="Win8.1_IE_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Win8.1_Opera_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="Win8.1_Opera_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Win8.1_Firefox_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="Win8.1_Firefox_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>-->
+
+   <!-- <test verbose="2" preserve-order="true" name="Win8_Chrome_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="Win8_Chrome_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Win8_IE_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="Win8_IE_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Win8_Opera_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="Win8_Opera_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Win8_Firefox_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="Win8_Firefox_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>-->
+
+   <!-- <test verbose="2" preserve-order="true" name="Win7_Chrome_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="Win7_Chrome_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Win7_IE_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="Win7_IE_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Win7_Opera_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="Win7_Opera_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Win7_Firefox_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="Win7_Firefox_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>-->
+
+   <!-- <test verbose="2" preserve-order="true" name="WinXP_Chrome_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="WinXP_Chrome_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="WinXP_IE_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="WinXP_IE_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="WinXP_Opera_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="WinXP_Opera_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="WinXP_Firefox_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="WinXP_Firefox_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>-->
+
+    <test verbose="2" preserve-order="true" name="MacBigSur_Chrome_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="MacBigSur_Chrome_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="MacBigSur_Edge_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="MacBigSur_Edge_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="MacBigSur_Safari_latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="MacBigSur_Safari_latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="MacBigSur_Firefox_Latest" >
+        <parameter name = "source" value="browserstack"/>
+        <parameter name = "browser" value="MacBigSur_Firefox_Latest"/>
+        <classes>
+            <class name="com.nhsn.testcases.TC01_SmokeTest">
+            </class>
+        </classes>
+    </test>
 </suite>

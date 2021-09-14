@@ -1,15 +1,20 @@
 package com.nhsn.pages;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import javax.swing.*;
+import java.sql.SQLOutput;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.util.*;
 
 public class HomePage {
     private WebDriver driver;
@@ -135,6 +140,13 @@ public class HomePage {
         System.out.println("Report Saved Message displayed on Top Right hand side");
     }
 
+    public void verifyReportSentText()
+    {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Report sent!']")));
+        System.out.println("Report Sent Message displayed on Top Right hand side");
+    }
+
+
     public void verifyReportSubmittedText()
     {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Report sent!']")));
@@ -210,10 +222,12 @@ public class HomePage {
 
     }
 
-    public void enterNote(String note)
+    public String enterNote(String note)
     {
-        driver.findElement(By.xpath("//textarea[@id='report-notes']")).sendKeys(note);
-        System.out.println("Entered the Note as - "+ note);
+        Date date = new Date();
+        driver.findElement(By.xpath("//textarea[@id='report-notes']")).sendKeys(note+"-"+ date);
+        System.out.println("Entered the Note as - "+ note+"-"+ date);
+        return note+"-"+ date;
     }
 
     public void compareNoteText(String expected)
@@ -227,6 +241,41 @@ public class HomePage {
         System.out.println("Clicked On Save Button");
     }
 
+    public String verifySubmitDateOnHomePage() throws InterruptedException, ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        SimpleDateFormat localDateFormat = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
+        //System.out.println(localDateFormat.parse(simpleDateFormat.format(new Date())));
+        String result[] = localDateFormat.parse(simpleDateFormat.format(new Date())).toString().split(" ");
+        String expectedSubmitDate = result[1]+" "+ result[2]+", "+ result[5];
+        System.out.println("Expected Submit Date:   " + expectedSubmitDate );
+        Thread.sleep(3000);;
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='report-submit-date']")));
+        String actualSubMitDate = driver.findElement(By.xpath("//div[@id='report-submit-date']")).getText();
+        System.out.println("Actual Submit Date:   " + actualSubMitDate);
+        Assert.assertEquals(actualSubMitDate, expectedSubmitDate, "Submit Date on Home Page is not showing correct");
 
+        return (Instant.now().toString().split("T")[0]);
+    }
+
+    public String toolTipOfSubmittedDateOnHomePage()
+    {
+        WebElement submittedDateElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='report-submit-date']")));
+        Actions action = new Actions(driver);
+        action.moveToElement(submittedDateElement).build().perform();
+        WebElement tooltipElement = driver.findElement(By.xpath("//ngb-tooltip-window[@role='tooltip']"));
+        String toolTipTextHomePage = tooltipElement.getText();
+        System.out.println("Tooltip Text on HomePage is -" + tooltipElement.getText());
+        return toolTipTextHomePage;
+    }
+    public void verifySubmitButtonIsDisabled()
+    {
+
+    }
+
+    public void verifyDiscardButtonIsDisabled()
+    {
+
+    }
 
 }

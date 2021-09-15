@@ -8,6 +8,13 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+/*
+1. Log in to NHSN Application
+2. Generate Report
+3. Enter Note and Click on Save Button
+4. Verify Report Saved Text on top Right hand side of the page
+5.
+ */
 public class TC05_VerifyNote extends BaseClass {
 
     LoginPage lPage;
@@ -23,12 +30,13 @@ public class TC05_VerifyNote extends BaseClass {
         rPage = new ReviewPage(driver);
         try
         {
-            lPage.loginToNHSNLinkApp("praveen_manuel", "Welcome@123");
+            lPage.loginToNHSNLinkApp(NHSN_USERNAME, NHSN_PASSWORD);
             hPage.generateReport("Test COVID Minimal");
             hPage.enterNote("Automation Notes");
             hPage.clickOnSaveButton();
             hPage.verifyReportSavedText();
             driver.navigate().refresh();
+            // Pending because of Webelements properties issue
 
         }
         catch(Exception e)

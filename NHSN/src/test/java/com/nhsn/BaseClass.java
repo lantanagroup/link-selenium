@@ -25,6 +25,8 @@ public class BaseClass {
 
     public static final String USERNAME = System.getenv("BROWSERSTACK_USERNAME");
     public static final String AUTOMATE_KEY = System.getenv("BROWSERSTACK_AUTOMATE_KEY");
+    public static final String NHSN_USERNAME = System.getenv("NHSN_USERNAME");
+    public static final String NHSN_PASSWORD = System.getenv("NHSN_PASSWORD");
     public static final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
 
     @Parameters({ "source","environment" ,"browser" })

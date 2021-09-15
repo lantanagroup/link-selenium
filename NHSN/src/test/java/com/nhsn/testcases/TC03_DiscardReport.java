@@ -8,6 +8,16 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+/*
+1. Log in to NHSN Application
+2. Generate Report
+3. Click on Discard Button
+4. Verify Review Table exists
+5. Generate Report
+6. Submit the Report
+7. Click on Discard Button
+8. Verify Review Table exists
+ */
 public class TC03_DiscardReport extends BaseClass {
 
     LoginPage lPage;
@@ -23,7 +33,7 @@ public class TC03_DiscardReport extends BaseClass {
         rPage = new ReviewPage(driver);
         try
         {
-            lPage.loginToNHSNLinkApp("praveen_manuel", "Welcome@123");
+            lPage.loginToNHSNLinkApp(NHSN_USERNAME, NHSN_PASSWORD);
             hPage.generateReport("Test COVID Minimal");
             hPage.discardReportOnReviewScreen();
             rPage.verifyReviewTableExists();

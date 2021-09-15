@@ -8,6 +8,11 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+/*
+1. Log in to NHSN Application
+2. Generate Report
+3. Verify the Report Status
+ */
 public class TC04_ReportStatus extends BaseClass {
 
     LoginPage lPage;
@@ -23,9 +28,10 @@ public class TC04_ReportStatus extends BaseClass {
         rPage = new ReviewPage(driver);
         try
         {
-            lPage.loginToNHSNLinkApp("praveen_manuel", "Welcome@123");
+            lPage.loginToNHSNLinkApp(NHSN_USERNAME, NHSN_PASSWORD);
             hPage.generateReport("Test COVID Minimal");
             hPage.verifyReportStatusOnHomePage();
+            // Pending because of web elements properties issue
         }
         catch(Exception e)
         {

@@ -9,6 +9,16 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+/*
+1. Log in to NHSN Application
+2. Submit the Report
+3. Verify Submit Date on Home Page
+4. Mouse Hover on Submit Date and Get the Tool tip value
+5. Enter Submit Date on Review Page
+6. Mouse Hover on Submit Date and Get the Tool tip value
+7. Compare Tooltip values of Submit Date for both Home page and Review Page
+ */
+
 public class TC06_VerifySubmitDateOnReviewPage  extends BaseClass {
 
     CommonFunctions cFunctions;
@@ -22,7 +32,7 @@ public class TC06_VerifySubmitDateOnReviewPage  extends BaseClass {
         rPage = new ReviewPage(driver);
         try
         {
-            String note = cFunctions.submitTheReport("praveen_manuel", "Welcome@123", "NHSN Medication Administration");
+            String note = cFunctions.submitTheReport(NHSN_USERNAME, NHSN_PASSWORD, "NHSN Medication Administration");
 
             String submittedDate = hPage.verifySubmitDateOnHomePage();
             String toolTip_HomePagePageSubmittedDate = hPage.toolTipOfSubmittedDateOnHomePage();

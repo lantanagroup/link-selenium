@@ -24,7 +24,7 @@ public class ReviewPage {
 
     public void verifyReviewTableExists()
     {
-        Assert.assertTrue( driver.findElement(By.xpath("//nandina-review/table")).isDisplayed() , "Review Table exists");
+        Assert.assertTrue( driver.findElement(By.xpath("//nandina-review/table")).isDisplayed() , "Review Table not exists");
         System.out.println("Review Table exists on Review Page");
     }
 
@@ -71,11 +71,11 @@ public class ReviewPage {
         System.out.println("Entered the date as -"+ date);
     }
 
-    public void verifySubmittedReportOnReviewPage( String note)  {
+    public void verifySubmittedReportOnReviewPage( String text)  {
 
-        WebElement reportNote = driver.findElement(By.xpath("//table//span[text()='"+note+"']"));
+        WebElement reportNote = driver.findElement(By.xpath("//table//span[text()='"+text+"']"));
         Assert.assertTrue(reportNote.isDisplayed(), "Recently Submitted Report is not displayed on the review Page");
-        System.out.println(note + " is displayed as expected i.e. Recently Submitted Report is displayed on the review Page");
+        System.out.println(text + " is displayed as expected i.e. Recently Submitted Report is displayed on the review Page");
     }
 
     public String getTooltipOfSubmittedDate(String note) throws InterruptedException {

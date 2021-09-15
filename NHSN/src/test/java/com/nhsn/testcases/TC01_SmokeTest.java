@@ -11,6 +11,16 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+1. Log in to NHSN Application
+2. URL is redirected to Environment URL
+3. Count the No of reports and matched with 4
+4. Verify the names of the reports
+5. Click on Review Tab
+6. Verify Review Table exists on Review Page
+7. Verify the columns on Review Table
+ */
+
 public class TC01_SmokeTest extends BaseClass {
     LoginPage lPage;
     HomePage hPage;
@@ -25,7 +35,7 @@ public class TC01_SmokeTest extends BaseClass {
         jse = (JavascriptExecutor)driver;
         try
         {
-            lPage.loginToNHSNLinkApp("praveen_manuel", "Welcome@123");
+            lPage.loginToNHSNLinkApp(NHSN_USERNAME, NHSN_PASSWORD);
 
             redirectedToEnvironmentURL(driver.getCurrentUrl(), env);
 
@@ -35,8 +45,6 @@ public class TC01_SmokeTest extends BaseClass {
             expectedReportNames.add("NHSN Medication Administration");
             expectedReportNames.add("Admissions from Skilled Nursing Facility to Hospital COVID-19 Reporting");
             expectedReportNames.add("COVID 19 Risk Factor");
-/*            expectedReportNames.add("NHSN Confirmed & Pre-Confirmed");
-            expectedReportNames.add("NHSN Medication Administration");*/
 
             hPage.validateTheNamesOfReports(expectedReportNames);
             hPage.clickOnReviewTab();

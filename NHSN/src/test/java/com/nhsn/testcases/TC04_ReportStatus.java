@@ -11,7 +11,11 @@ import org.testng.annotations.Test;
 /*
 1. Log in to NHSN Application
 2. Generate Report
-3. Verify the Report Status
+3. Verify the Report Status on Home Page
+4. Submit the report without entering the Note - Reviewing
+5. Verify the Report Status on Home page again - Submitted
+6. Click on Review Tab and navigate to Review Screen
+7. Verify the status of the report
  */
 public class TC04_ReportStatus extends BaseClass {
 
@@ -30,8 +34,15 @@ public class TC04_ReportStatus extends BaseClass {
         {
             lPage.loginToNHSNLinkApp(NHSN_USERNAME, NHSN_PASSWORD);
             hPage.generateReport("Test COVID Minimal");
-            hPage.verifyReportStatusOnHomePage();
-            // Pending because of web elements properties issue
+            hPage.verifyReportStatusOnHomePage("Reviewing");
+            System.out.println("Report Status is showing as Reviewing as expected on Home Page");
+            hPage.submitTheReport(false);
+            hPage.verifyReportStatusOnHomePage("Submitted");
+            System.out.println("Report Status is showing as Submitted  as expected on Home Page");
+            String submitDate = hPage.verifySubmitDateOnHomePage();
+            hPage.clickOnReviewTab();
+            rPage.enterSubmitDateOnReviewPage(submitDate);
+            rPage.verifyReportStatusOnreviewPage();
         }
         catch(Exception e)
         {

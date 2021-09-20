@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 4. Verify Report Saved Text on top Right hand side of the page
 5.
  */
-public class TC05_VerifyNote extends BaseClass {
+public class TC05_VerifyNoteOnHomePage extends BaseClass {
 
     LoginPage lPage;
     HomePage hPage;
@@ -23,7 +23,7 @@ public class TC05_VerifyNote extends BaseClass {
     ReviewPage rPage;
 
     @Test
-    public void reportStatus()  {
+    public void verifyNote()  {
         lPage = new LoginPage(driver);
         hPage = new HomePage(driver);
         jse = (JavascriptExecutor)driver;
@@ -31,13 +31,13 @@ public class TC05_VerifyNote extends BaseClass {
         try
         {
             lPage.loginToNHSNLinkApp(NHSN_USERNAME, NHSN_PASSWORD);
-            hPage.generateReport("Test COVID Minimal");
-            hPage.enterNote("Automation Notes");
+            hPage.generateReport("NHSN Medication Administration");
+            String expected_NoteText = hPage.enterNote("Automation Notes");
             hPage.clickOnSaveButton();
             hPage.verifyReportSavedText();
-            driver.navigate().refresh();
-            // Pending because of Webelements properties issue
-
+            String actual_NoteText = hPage.getNoteText();
+            Assert.assertEquals(actual_NoteText,expected_NoteText, "Note Text is not matching after save");
+            Assert.assertFalse(hPage.verifySaveButtonIsEnabled(), "Save Button is not disabled");
         }
         catch(Exception e)
         {

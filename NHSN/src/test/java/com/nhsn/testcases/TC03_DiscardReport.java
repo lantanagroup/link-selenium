@@ -39,7 +39,7 @@ public class TC03_DiscardReport extends BaseClass {
             rPage.verifyReviewTableExists();
             rPage.clickOnGenerateButton();
             hPage.generateReport("Test COVID Minimal");
-            hPage.submitTheReport();
+            hPage.submitTheReport(false);
             hPage.discardReportOnReviewScreen();
             rPage.verifyReviewTableExists();
         }

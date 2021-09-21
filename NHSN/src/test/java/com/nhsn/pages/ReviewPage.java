@@ -78,15 +78,36 @@ public class ReviewPage {
         System.out.println(text + " is displayed as expected i.e. Recently Submitted Report is displayed on the review Page");
     }
 
-    public String getTooltipOfSubmittedDate(String note) throws InterruptedException {
+    public void verifyNoteTooltipOnReviewPage( String partialtext, String fullText)  {
 
+        WebElement reportNote = driver.findElement(By.xpath("//table//span[text()='"+partialtext+"']"));
+        Assert.assertTrue(reportNote.isDisplayed(), "Recently Submitted Report is not displayed on the review Page");
+
+        WebElement noteIcon = driver.findElement(By.xpath("//table//span[text()='"+partialtext+"']//following-sibling::i"));
+        Assert.assertEquals(fullText,getTooltipOfWebElement(noteIcon),"Tooltip value of Note Icon is not Matched");
+     }
+
+    public String getTooltipOfSubmittedDate(String note) throws InterruptedException {
         WebElement submittedDateElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//table//span[text()='"+note+"']/ancestor::tr/td[4]/span")));
+        return  getTooltipOfWebElement(submittedDateElement);
+    }
+
+    public String getTooltipOfWebElement(WebElement element)
+    {
         Actions action = new Actions(driver);
-        action.moveToElement(submittedDateElement).build().perform();
+        action.moveToElement(element).build().perform();
         WebElement tooltipElement = driver.findElement(By.xpath("//ngb-tooltip-window[@role='tooltip']"));
-        String toolTipText_ReviewPage = tooltipElement.getText();
-        System.out.println("Tooltip Text on Review Page is -" + tooltipElement.getText());
-        return toolTipText_ReviewPage;
+        String toolTipText = tooltipElement.getText();
+        System.out.println("Tooltip Text is -" + tooltipElement.getText());
+        return toolTipText;
+    }
+
+    public void verifyReportStatusOnreviewPage()
+    {
+        // to do
+
+
+
     }
 
 

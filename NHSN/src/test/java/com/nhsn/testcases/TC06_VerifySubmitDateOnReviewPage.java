@@ -33,7 +33,6 @@ public class TC06_VerifySubmitDateOnReviewPage  extends BaseClass {
         try
         {
             String note = cFunctions.submitTheReport(NHSN_USERNAME, NHSN_PASSWORD, "NHSN Medication Administration");
-
             String submittedDate = hPage.verifySubmitDateOnHomePage();
             String toolTip_HomePagePageSubmittedDate = hPage.toolTipOfSubmittedDateOnHomePage();
             hPage.clickOnReviewTab();

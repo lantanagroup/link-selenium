@@ -5,6 +5,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import javax.swing.*;
 import java.sql.SQLOutput;
@@ -43,7 +44,7 @@ public class HomePage {
     {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         final Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -1);
+        cal.add(Calendar.DATE, -10);
         WebElement dateElement = driver.findElement(By.xpath("//input[@name='dp']"));
         dateElement.clear();
         dateElement.sendKeys(dateFormat.format(cal.getTime()));
@@ -103,19 +104,28 @@ public class HomePage {
         acceptTheAlert();
     }
 
-    public void submitTheReport()
-    {
+    public void submitTheReport(boolean save) throws InterruptedException {
         clickOnSubmitButton();
         acceptTheAlert();
-        verifyReportSavedText();
-        verifyReportSubmittedText();
-       // tooltipValueOnHomeScreen();
+        if(save)
+        {
+            verifyReportSavedText();  //Report Saved text does not show when there is nothing to save it
+        }
+        verifyReportSentText();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(verifySaveButtonIsEnabled(),"Save Button is not disabled");
+        System.out.println("Save Button is disabled as expected");
+        softAssert.assertFalse(verifySubmitButtonIsEnabled(),"Submit Button is not disabled");
+        System.out.println("Submit Button is disabled as expected");
+        softAssert.assertFalse(verifyDiscardButtonIsEnabled(),"Discard Button is not disabled");
+        System.out.println("Discard Button is disabled as expected");
+        softAssert.assertAll();
     }
 
     public void clickOnSubmitButton()
     {
-        driver.findElement(By.xpath("//button[text()='Submit']")).click();
-        System.out.println("Clicked On Submmit button");
+        driver.findElement(By.xpath("//button[contains(text(),'Submit')]")).click();
+        System.out.println("Clicked On Submit button");
     }
 
     public boolean acceptTheAlert()
@@ -140,16 +150,15 @@ public class HomePage {
         System.out.println("Report Saved Message displayed on Top Right hand side");
     }
 
-    public void verifyReportSentText()
+    public String getNoteText()
     {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Report sent!']")));
-        System.out.println("Report Sent Message displayed on Top Right hand side");
+       return (driver.findElement(By.xpath("//textarea")).getAttribute("value"));
     }
 
 
-    public void verifyReportSubmittedText()
+    public void verifyReportSentText()
     {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Report sent!']")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(text(),'Report sent!')]")));
         System.out.println("Report Sent Message displayed on Top Right hand side");
     }
 
@@ -217,9 +226,12 @@ public class HomePage {
         System.out.println("Clicked On Get Help Option");
     }
 
-    public void verifyReportStatusOnHomePage()
-    {
-
+    public void verifyReportStatusOnHomePage(String expectedStatus) throws InterruptedException {
+        Thread.sleep(3000);
+        WebElement reportStatusElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@id='report-status-version']")));
+        String reportStatusWithVersion = reportStatusElement.getAttribute("value");
+        String reportStatus = reportStatusWithVersion.split("-")[0].trim();
+        Assert.assertEquals(expectedStatus,reportStatus,"Report status is not matching as expected");
     }
 
     public String enterNote(String note)
@@ -268,14 +280,19 @@ public class HomePage {
         System.out.println("Tooltip Text on HomePage is -" + tooltipElement.getText());
         return toolTipTextHomePage;
     }
-    public void verifySubmitButtonIsDisabled()
-    {
-
+    public boolean verifySubmitButtonIsEnabled() throws InterruptedException {
+        Thread.sleep(3000);
+        return driver.findElement(By.xpath("//button[contains(text(),'Submit')]")).isEnabled();
     }
 
-    public void verifyDiscardButtonIsDisabled()
-    {
+    public boolean verifyDiscardButtonIsEnabled() throws InterruptedException {
+        Thread.sleep(3000);
+        return driver.findElement(By.xpath("//button[contains(text(),'Discard')]")).isEnabled();
+    }
 
+    public boolean verifySaveButtonIsEnabled()
+    {
+        return driver.findElement(By.xpath("//button[contains(text(),'Save')]")).isEnabled();
     }
 
 }

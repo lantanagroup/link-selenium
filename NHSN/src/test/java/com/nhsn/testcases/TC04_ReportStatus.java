@@ -32,11 +32,12 @@ public class TC04_ReportStatus extends BaseClass {
         rPage = new ReviewPage(driver);
         try
         {
+            String reportName = "Test COVID Minimal";
             lPage.loginToNHSNLinkApp(NHSN_USERNAME, NHSN_PASSWORD);
-            hPage.generateReport("Test COVID Minimal");
+            hPage.generateReport(reportName);
             hPage.verifyReportStatusOnHomePage("Reviewing");
             System.out.println("Report Status is showing as Reviewing as expected on Home Page");
-            hPage.submitTheReport(false);
+            hPage.submitTheReport(false, reportName,"0");
             hPage.verifyReportStatusOnHomePage("Submitted");
             System.out.println("Report Status is showing as Submitted  as expected on Home Page");
             String submitDate = hPage.verifySubmitDateOnHomePage();

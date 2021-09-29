@@ -7,14 +7,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
-import javax.swing.*;
-import java.sql.SQLOutput;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
 import java.util.*;
 
 public class HomePage {
@@ -91,6 +87,7 @@ public class HomePage {
     }
 
     public void generateReport(String reportName) throws InterruptedException {
+        clickOnGenerateButton();
         clickOnSelectDropdown();
         selectReport(reportName);
         selectYesterdayDate();
@@ -99,26 +96,41 @@ public class HomePage {
 
     public void discardReportOnReviewScreen()
     {
-        driver.findElement(By.xpath("//button[text()='Discard']")).click();
+        driver.findElement(By.xpath("//button[text()=' Discard ']")).click();
         System.out.println("Clicked on Discard Button");
         acceptTheAlert();
     }
 
-    public void submitTheReport(boolean save) throws InterruptedException {
+    public void clickOnGenerateButton()
+    {
+        driver.findElement(By.xpath("//a[text()='Generate']")).click();
+        System.out.println("Clicked on Generate Button on Home Page");
+    }
+
+    public void submitTheReport(boolean save, String reportName, String population) throws InterruptedException {
         clickOnSubmitButton();
         acceptTheAlert();
         if(save)
         {
+            acceptTheAlert();
             verifyReportSavedText();  //Report Saved text does not show when there is nothing to save it
         }
         verifyReportSentText();
+        verifyReportStatusOnHomePage("Submitted");
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertFalse(verifySaveButtonIsEnabled(),"Save Button is not disabled");
-        System.out.println("Save Button is disabled as expected");
-        softAssert.assertFalse(verifySubmitButtonIsEnabled(),"Submit Button is not disabled");
-        System.out.println("Submit Button is disabled as expected");
-        softAssert.assertFalse(verifyDiscardButtonIsEnabled(),"Discard Button is not disabled");
-        System.out.println("Discard Button is disabled as expected");
+        softAssert.assertFalse(verifyNotesTextAreaisEnabled(),"Notes Text Area is not disabled");
+        System.out.println("Notes Text Area is disabled as expected");
+        if(reportName.equalsIgnoreCase("NHSN Medication Administration"))
+        {
+            softAssert.assertFalse(verifyPopulationTextboxIsEnabled(),"Population Textbox is not disabled");
+            System.out.println("Population Textbox  is disabled as expected");
+
+            if(!(population.equals("0")))
+            {
+                softAssert.assertFalse(verifyReasonForChangeIsEnabled(),"Reason for Change textbox is not disabled");
+                System.out.println("Reason for Change Textbox is disabled as expected");
+            }
+        }
         softAssert.assertAll();
     }
 
@@ -134,8 +146,9 @@ public class HomePage {
         {
             wait.until(ExpectedConditions.alertIsPresent());
             Alert alert = driver.switchTo().alert();
+            String alertText = alert.getText();
             alert.accept();
-            System.out.println("Accepted the Alert");
+            System.out.println("Accepted the Alert for - "+ alertText);
             return true;
         }
         catch (Exception Ex)
@@ -144,8 +157,7 @@ public class HomePage {
         }
     }
 
-    public void verifyReportSavedText()
-    {
+    public void verifyReportSavedText() throws InterruptedException {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Report saved!']")));
         System.out.println("Report Saved Message displayed on Top Right hand side");
     }
@@ -160,11 +172,6 @@ public class HomePage {
     {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(text(),'Report sent!')]")));
         System.out.println("Report Sent Message displayed on Top Right hand side");
-    }
-
-    public void verifyStatus(String status)
-    {
-
     }
 
     public void NavigateToReviewScree()
@@ -237,14 +244,11 @@ public class HomePage {
     public String enterNote(String note)
     {
         Date date = new Date();
-        driver.findElement(By.xpath("//textarea[@id='report-notes']")).sendKeys(note+"-"+ date);
+        WebElement noteElement = driver.findElement(By.xpath("//textarea[@id='report-notes']"));
+        noteElement.clear();
+        noteElement.sendKeys(note+"-"+ date);
         System.out.println("Entered the Note as - "+ note+"-"+ date);
         return note+"-"+ date;
-    }
-
-    public void compareNoteText(String expected)
-    {
-        // Note text web element properties needs to be changed
     }
 
     public void clickOnSaveButton()
@@ -293,6 +297,87 @@ public class HomePage {
     public boolean verifySaveButtonIsEnabled()
     {
         return driver.findElement(By.xpath("//button[contains(text(),'Save')]")).isEnabled();
+    }
+
+    public boolean verifyNotesTextAreaisEnabled()
+    {
+        return driver.findElement(By.xpath("//textarea[@placeholder='Notes...']")).isEnabled();
+    }
+
+    public boolean verifyPopulationTextboxIsEnabled()
+    {
+        return driver.findElement(By.xpath("//app-calculated-field/input")).isEnabled();
+    }
+
+    public void clickOnViewLineLevelDataButton()
+    {
+        WebElement viewLineLevelData = driver.findElement(By.xpath("//button[text()='View Line-Level Data']"));
+        viewLineLevelData.click();
+        System.out.println("Clicked on View Line Level Data Button");
+    }
+
+    public void verifyViewLineLevelTableColumns()
+    {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='modal-body']/table")));
+        System.out.println("View Line Level Data Table exists");
+        List<WebElement> table = driver.findElements(By.xpath("//div[@class='modal-body']/table/thead/tr/th"));
+        int noOfColumns = table.size();
+        Assert.assertEquals(4,noOfColumns, "No Of columns in the View Line Level Data are not matching");
+        ArrayList<String> actualColumns = new ArrayList<String>();
+        for (WebElement column: table)
+        {
+            if(!(column.getText().equals("")))
+            {
+               actualColumns.add(column.getText());
+            }
+        }
+        List<String> expectedColumns = Arrays.asList("Name", "Sex", "DOB"," ");
+        Assert.assertTrue(expectedColumns.equals(actualColumns), "View Line Level Table column names are not matching");
+    }
+
+    public void verifyDefaultValuesOfInitialPopulationTextbox()
+    {
+       String defaultValue = driver.findElement(By.xpath("//label[text()='Initial Population']/parent::div//app-calculated-field/input")).getAttribute("min");
+       Assert.assertEquals("0", defaultValue, "Default value is not matching for the Initial Population field");
+    }
+
+    public void enterReasonForChange(String population)
+    {
+        WebElement initialPopulationtextbox = driver.findElement(By.xpath("//label[text()='Initial Population']/parent::div//app-calculated-field/input"));
+        initialPopulationtextbox.clear();
+        if(!(population.equals("0")))
+        {
+           initialPopulationtextbox.sendKeys(population);
+           Assert.assertTrue(driver.findElement(By.xpath("//textarea[@placeholder='Please indicate a reason for the change.']")).isDisplayed());
+           System.out.println("Please indicate a reason for the change text is displayed as expected");
+
+           Assert.assertTrue(driver.findElement(By.xpath("//div[text()='This field is required']")).isDisplayed());
+           System.out.println("This field is required text is displayed as expected");
+
+            driver.findElement(By.xpath("//textarea[@placeholder='Please indicate a reason for the change.']")).sendKeys("Test Automation");
+        }
+        else
+        {
+            try
+            {
+                Assert.assertFalse(driver.findElement(By.xpath("//textarea[@placeholder='Please indicate a reason for the change.']")).isDisplayed());
+            }
+            catch(Exception e)
+            {
+                System.out.println("Please indicate a reason for the change text is not displayed as expected");
+            }
+        }
+    }
+
+    public void validateReasonAfterSave()
+    {
+        Assert.assertEquals("Test Automation", driver.findElement(By.xpath("//textarea[@placeholder='Please indicate a reason for the change.']")).getAttribute("value"),"Reason After Save is not matching");
+        System.out.println("Reason After Save is showing as expected - Test Automation");
+    }
+
+    public boolean verifyReasonForChangeIsEnabled()
+    {
+        return driver.findElement(By.xpath("//textarea[@placeholder='Please indicate a reason for the change.']")).isEnabled();
     }
 
 }

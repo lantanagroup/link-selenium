@@ -24,15 +24,20 @@ public class TC06_VerifySubmitDateOnReviewPage  extends BaseClass {
     CommonFunctions cFunctions;
     HomePage hPage;
     ReviewPage rPage;
+    LoginPage lPage;
 
     @Test
     public void verifySubmitDate()  {
         cFunctions = new CommonFunctions(driver);
         hPage = new HomePage(driver);
         rPage = new ReviewPage(driver);
+        lPage = new LoginPage(driver);
         try
         {
-            String note = cFunctions.submitTheReport(NHSN_USERNAME, NHSN_PASSWORD, "NHSN Medication Administration");
+            lPage.loginToNHSNLinkApp(NHSN_USERNAME, NHSN_PASSWORD);
+            hPage.generateReport("NHSN Medication Administration");
+            String note =  hPage.enterNote("Test Automation");
+            hPage.submitTheReport(true,"NHSN Medication Administration","0");
             String submittedDate = hPage.verifySubmitDateOnHomePage();
             String toolTip_HomePagePageSubmittedDate = hPage.toolTipOfSubmittedDateOnHomePage();
             hPage.clickOnReviewTab();

@@ -1,46 +1,40 @@
 package com.nhsn.testcases;
 
 import com.nhsn.BaseClass;
+import com.nhsn.pages.HelpPage;
 import com.nhsn.pages.HomePage;
 import com.nhsn.pages.LoginPage;
-import com.nhsn.pages.ReviewPage;
 import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /*
 1. Log in to NHSN Application
-2. Generate Report
-3. Click on Discard Button
-4. Verify Review Table exists
-5. Generate Report
-6. Submit the Report
-7. Click on Discard Button
-8. Verify Review Table exists
+2. Generate the report
+3. Click on View Line Level Button
+4. Verify the View Line Level tale column names
  */
-public class TC03_DiscardReport extends BaseClass {
-
+public class TC09_ViewLineLevelData extends BaseClass
+{
     LoginPage lPage;
     HomePage hPage;
     JavascriptExecutor jse ;
-    ReviewPage rPage;
-
+    HelpPage hpPage;
     @Test
-    public void discardReport()  {
+    public void verifyViewLineLevelData()
+    {
         lPage = new LoginPage(driver);
         hPage = new HomePage(driver);
+        hpPage = new HelpPage(driver);
         jse = (JavascriptExecutor)driver;
-        rPage = new ReviewPage(driver);
         try
         {
-            String reportName = "Test COVID Minimal";
+            String reportName = "NHSN Medication Administration";
             lPage.loginToNHSNLinkApp(NHSN_USERNAME, NHSN_PASSWORD);
             hPage.generateReport(reportName);
-            hPage.discardReportOnReviewScreen();
-            rPage.verifyReviewTableExists();
-            rPage.clickOnGenerateButton();
-            hPage.generateReport(reportName);
-            hPage.submitTheReport(false, reportName,"0");
+            hPage.clickOnViewLineLevelDataButton();
+            hPage.verifyViewLineLevelTableColumns();
+
         }
         catch(Exception e)
         {
@@ -51,8 +45,12 @@ public class TC03_DiscardReport extends BaseClass {
             System.out.println(e.getMessage());
             Assert.fail("Error in the Test");
         }
-
     }
+
+
+
+
+
 
 
 }

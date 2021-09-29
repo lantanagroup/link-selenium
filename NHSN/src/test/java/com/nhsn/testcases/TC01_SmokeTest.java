@@ -41,10 +41,10 @@ public class TC01_SmokeTest extends BaseClass {
 
             hPage.countNoOfReports(4);
             List expectedReportNames = new ArrayList();
-            expectedReportNames.add("Test COVID Minimal");
-            expectedReportNames.add("NHSN Medication Administration");
             expectedReportNames.add("Admissions from Skilled Nursing Facility to Hospital COVID-19 Reporting");
             expectedReportNames.add("COVID 19 Risk Factor");
+            expectedReportNames.add("Test COVID Minimal");
+            expectedReportNames.add("NHSN Medication Administration");
 
             hPage.validateTheNamesOfReports(expectedReportNames);
             hPage.clickOnReviewTab();

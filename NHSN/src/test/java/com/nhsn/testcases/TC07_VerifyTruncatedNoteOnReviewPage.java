@@ -31,17 +31,15 @@ public class TC07_VerifyTruncatedNoteOnReviewPage extends BaseClass {
         try
         {
             lPage.loginToNHSNLinkApp(NHSN_USERNAME, NHSN_PASSWORD);
-            //hPage.generateReport("NHSN Medication Administration");
-            //String expected_NoteText = hPage.enterNote("Automation Notes Automation Notes Automation Notes");
-            String expected_NoteText="I am going to display only 50 characters of a note. After that I will display a page symbol.";
+            hPage.generateReport("NHSN Medication Administration");
+            String expected_NoteText = hPage.enterNote("Automation Notes Automation Notes Automation Notes");
             String first50CharOfString = expected_NoteText.substring(0, Math.min(expected_NoteText.length(), 50));
-           /* hPage.clickOnSaveButton();
+            hPage.clickOnSaveButton();
             hPage.verifyReportSavedText();
-            hPage.submitTheReport();
-            String submittedDate = hPage.verifySubmitDateOnHomePage();*/
+            hPage.submitTheReport(false,"NHSN Medication Administration","0");
+            String submittedDate = hPage.verifySubmitDateOnHomePage();
             hPage.clickOnReviewTab();
-            //rPage.enterSubmitDateOnReviewPage(submittedDate);
-            rPage.enterSubmitDateOnReviewPage("2021-08-30");
+            rPage.enterSubmitDateOnReviewPage(submittedDate);
             rPage.verifyNoteTooltipOnReviewPage(first50CharOfString+"...",expected_NoteText);
             Thread.sleep(10000);
         }

@@ -36,10 +36,6 @@ public class TC02_GetHelp_Test extends BaseClass
         }
         catch(Exception e)
         {
-            if(!(sourceRun.equalsIgnoreCase("local")))
-            {
-                jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \"Error in the Test case\"}}");
-            }
             System.out.println(e.getMessage());
             Assert.fail("Error in the Test");
         }

@@ -134,6 +134,24 @@ public class HomePage {
         softAssert.assertAll();
     }
 
+    public String getMinorVersion()
+    {
+        String verisonText = driver.findElement(By.xpath("//input[@id='report-status-version']")).getAttribute("value");
+        String maxVersion = verisonText.split("-")[1].split("\\.")[0];
+        String minorVersion = verisonText.split("-")[1].split("\\.")[1];
+        return minorVersion;
+
+    }
+
+    public void clickOnRegenrateButton()
+    {
+        WebElement regenrateButton = driver.findElement(By.xpath("//button[text()=' Re-generate ']"));
+        regenrateButton.click();
+        System.out.println("Clicked on Re-Generate Button");
+        isAlertPresent();
+    }
+
+
     public void clickOnSubmitButton()
     {
         driver.findElement(By.xpath("//button[contains(text(),'Submit')]")).click();
@@ -160,6 +178,11 @@ public class HomePage {
     public void verifyReportSavedText() throws InterruptedException {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Report saved!']")));
         System.out.println("Report Saved Message displayed on Top Right hand side");
+    }
+
+    public void verifyReportRegeneratedText() throws InterruptedException {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Report re-generated!']")));
+        System.out.println("Report Re-Generated Text is displayed on Top Right Hand side of the page");
     }
 
     public String getNoteText()

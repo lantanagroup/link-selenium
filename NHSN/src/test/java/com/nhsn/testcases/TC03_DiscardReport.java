@@ -35,11 +35,11 @@ public class TC03_DiscardReport extends BaseClass {
         {
             String reportName = "Test COVID Minimal";
             lPage.loginToNHSNLinkApp(NHSN_USERNAME, NHSN_PASSWORD);
-            hPage.generateReport(reportName);
+            hPage.generateReport(reportName,"2021-05-05");
             hPage.discardReportOnReviewScreen();
             rPage.verifyReviewTableExists();
             rPage.clickOnGenerateButton();
-            hPage.generateReport(reportName);
+            hPage.generateReport(reportName,"2021-05-05");
             hPage.submitTheReport(false, reportName,"0");
         }
         catch(Exception e)

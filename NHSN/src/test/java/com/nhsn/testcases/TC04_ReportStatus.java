@@ -34,7 +34,7 @@ public class TC04_ReportStatus extends BaseClass {
         {
             String reportName = "Test COVID Minimal";
             lPage.loginToNHSNLinkApp(NHSN_USERNAME, NHSN_PASSWORD);
-            hPage.generateReport(reportName);
+            hPage.generateReport(reportName,"2021-05-05");
             hPage.verifyReportStatusOnHomePage("Reviewing");
             System.out.println("Report Status is showing as Reviewing as expected on Home Page");
             hPage.submitTheReport(false, reportName,"0");

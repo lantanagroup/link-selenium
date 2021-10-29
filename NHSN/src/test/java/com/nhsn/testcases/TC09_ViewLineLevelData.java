@@ -31,7 +31,7 @@ public class TC09_ViewLineLevelData extends BaseClass
         {
             String reportName = "NHSN Medication Administration";
             lPage.loginToNHSNLinkApp(NHSN_USERNAME, NHSN_PASSWORD);
-            hPage.generateReport(reportName);
+            hPage.generateReport(reportName,"2021-05-05");
             hPage.clickOnViewLineLevelDataButton();
             hPage.verifyViewLineLevelTableColumns();
 

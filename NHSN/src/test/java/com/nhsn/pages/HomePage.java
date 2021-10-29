@@ -3,6 +3,7 @@ package com.nhsn.pages;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
@@ -36,7 +37,7 @@ public class HomePage {
 
     }
 
-    public void selectYesterdayDate()
+ /*   public void selectYesterdayDate()
     {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         final Calendar cal = Calendar.getInstance();
@@ -44,7 +45,14 @@ public class HomePage {
         WebElement dateElement = driver.findElement(By.xpath("//input[@name='dp']"));
         dateElement.clear();
         dateElement.sendKeys(dateFormat.format(cal.getTime()));
-    }
+    }*/
+     public void selectYesterdayDate(String date)
+     {
+         WebElement dateElement = driver.findElement(By.xpath("//input[@name='dp']"));
+         dateElement.clear();
+         dateElement.sendKeys(date);
+     }
+
 
     public void clickOnGenerateReportButton()
     {
@@ -86,11 +94,11 @@ public class HomePage {
         System.out.println("Clicked On Logout button");
     }
 
-    public void generateReport(String reportName) throws InterruptedException {
+    public void generateReport(String reportName, String reportDate) throws InterruptedException {
         clickOnGenerateButton();
         clickOnSelectDropdown();
         selectReport(reportName);
-        selectYesterdayDate();
+        selectYesterdayDate(reportDate);
         clickOnGenerateReportButton();
     }
 
@@ -339,6 +347,83 @@ public class HomePage {
         System.out.println("Clicked on View Line Level Data Button");
     }
 
+    public String noOfPatientsOnLiveLevelData()
+    {
+        return driver.findElement(By.xpath("//h6[contains(text(),'Total Patients included in report:')]")).getText().split(":")[1];
+    }
+    public void clickOnExcludeButton()
+    {
+        WebElement excludeButton = driver.findElement(By.xpath("//button[text()='Exclude']"));
+        excludeButton.click();
+        System.out.println("Clicked on Exclude Button");
+    }
+
+    public void clickOnReIncludeButton()
+    {
+        WebElement reIncludeButton = driver.findElement(By.xpath("//button[text()='Re-include ']"));
+        reIncludeButton.click();
+        System.out.println("Clicked on Re-Include Button");
+    }
+
+    public boolean thisFieldIsRequiredDisplayed()
+    {
+        WebElement isRequiredField = driver.findElement(By.xpath("//div[contains(text(),'This field is required')]"));
+        return isRequiredField.isDisplayed();
+    }
+
+    public void verifyTheReasons()
+    {
+        Select reasonsDropdown = new Select(driver.findElement(By.xpath("//div[text()='This field is required']//preceding-sibling::select")));
+        List <WebElement> reasonsDropdownList = reasonsDropdown.getOptions();
+        List<String> actualReasonsList = new ArrayList<>();
+        int size = reasonsDropdownList.size();
+        for(int i =0; i<size ; i++){
+            String options = reasonsDropdownList.get(i).getText();
+            actualReasonsList.add(options);
+        }
+
+        List<String> expectedReasons = new ArrayList<>();
+        expectedReasons.add("Findings not captured in EMR");
+        expectedReasons.add("Findings found from manual review of EMR unavailable from automated capture");
+        expectedReasons.add("Error in data included in automated capture from EMR");
+        expectedReasons.add("Other, specify");
+
+        Assert.assertEquals(actualReasonsList,expectedReasons, "Reasons dropdown not showing the correct values");
+        System.out.println("Reasons dropdown showing the correct values");
+    }
+
+    public void selectTheReason(String reason) throws InterruptedException {
+        Select reasonsDropdown = new Select(driver.findElement(By.xpath("//div[text()='This field is required']//preceding-sibling::select")));
+        reasonsDropdown.selectByVisibleText(reason);
+        System.out.println("Selected the reason as "+reason);
+        if(reason.equals("Other, specify"))
+        {
+            Assert.assertTrue(thisFieldIsRequiredDisplayed());
+            driver.findElement(By.xpath("//div[contains(text(),'This field is required')]/preceding-sibling::input")).sendKeys("Test");
+            System.out.println("Selected the Other Reason as Test");
+            Actions actions = new Actions(driver);
+            actions.sendKeys(Keys.TAB).build().perform();
+            Thread.sleep(1000);
+        }
+    }
+
+    public void getTooltipOfExcludedSelected()
+    {
+        String tooltip = getTooltipOfWebElement(driver.findElement(By.xpath("//button[text()=' Exclude Selected ']")));
+        Assert.assertEquals(tooltip, "Reason must be specified for all excluded patients.", "Excluded Selected Button tooltip is not showing as expected");
+        System.out.println("Excluded Selected Button tooltip is showing as expected");
+    }
+
+    public String getTooltipOfWebElement(WebElement element)
+    {
+        Actions action = new Actions(driver);
+        action.moveToElement(element).build().perform();
+        WebElement tooltipElement = driver.findElement(By.xpath("//ngb-tooltip-window[@role='tooltip']"));
+        String toolTipText = tooltipElement.getText();
+        System.out.println("Tooltip Text is -" + tooltipElement.getText());
+        return toolTipText;
+    }
+
     public void verifyViewLineLevelTableColumns()
     {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='modal-body']/table")));
@@ -402,5 +487,29 @@ public class HomePage {
     {
         return driver.findElement(By.xpath("//textarea[@placeholder='Please indicate a reason for the change.']")).isEnabled();
     }
+
+    public boolean verifyExcludedSelectedButtonIsEnabled()
+    {
+        return driver.findElement(By.xpath("//button[text()=' Exclude Selected ']")).isEnabled();
+    }
+
+    public void clickOnExcludeSelectedButton()
+    {
+        driver.findElement(By.xpath("//button[text()=' Exclude Selected ']")).click();
+        System.out.println("Clicked on Exclude Selected Button");
+
+    }
+
+    public boolean noPatientsInTheReportTextIsDisplayed()
+    {
+       return driver.findElement(By.xpath("//td[text()='No patients in this report']")).isDisplayed();
+    }
+
+    public void clickOnCloseButton()
+    {
+        driver.findElement(By.xpath("//button[text()=' Close ']")).click();
+        System.out.println("Clicked On Close Button");
+    }
+
 
 }

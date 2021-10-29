@@ -34,7 +34,7 @@ public class CommonFunctions {
 
         try {
             lPage.loginToNHSNLinkApp(userName, password);
-            hPage.generateReport(reportName);
+            hPage.generateReport(reportName,"2021-05-05");
             note =  hPage.enterNote("Test Automation");
             hPage.clickOnSubmitButton();
             hPage.acceptTheAlert();

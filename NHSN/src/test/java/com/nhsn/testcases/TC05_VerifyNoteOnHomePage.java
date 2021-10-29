@@ -30,8 +30,9 @@ public class TC05_VerifyNoteOnHomePage extends BaseClass {
         rPage = new ReviewPage(driver);
         try
         {
+            String reportName = "NHSN Medication Administration";
             lPage.loginToNHSNLinkApp(NHSN_USERNAME, NHSN_PASSWORD);
-            hPage.generateReport("NHSN Medication Administration");
+            hPage.generateReport(reportName,"2021-05-05");
             String expected_NoteText = hPage.enterNote("Automation Notes");
             hPage.clickOnSaveButton();
             hPage.verifyReportSavedText();

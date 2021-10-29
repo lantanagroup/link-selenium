@@ -43,7 +43,7 @@ public class TC10_InitialPopulation_Reason extends BaseClass
         {
             String reportName = "NHSN Medication Administration";
             lPage.loginToNHSNLinkApp(NHSN_USERNAME, NHSN_PASSWORD);
-            hPage.generateReport(reportName);
+            hPage.generateReport(reportName,"2021-05-05");
             hPage.verifyDefaultValuesOfInitialPopulationTextbox();
             hPage.enterReasonForChange("1");
             hPage.clickOnSaveButton();

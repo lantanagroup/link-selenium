@@ -30,8 +30,9 @@ public class TC07_VerifyTruncatedNoteOnReviewPage extends BaseClass {
         rPage = new ReviewPage(driver);
         try
         {
+            String reportName = "NHSN Medication Administration";
             lPage.loginToNHSNLinkApp(NHSN_USERNAME, NHSN_PASSWORD);
-            hPage.generateReport("NHSN Medication Administration");
+            hPage.generateReport(reportName,"2021-05-05");
             String expected_NoteText = hPage.enterNote("Automation Notes Automation Notes Automation Notes");
             String first50CharOfString = expected_NoteText.substring(0, Math.min(expected_NoteText.length(), 50));
             hPage.clickOnSaveButton();

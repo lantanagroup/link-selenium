@@ -35,8 +35,9 @@ public class TC11_RegenrateReport extends BaseClass {
         lPage = new LoginPage(driver);
         try
         {
+            String reportName = "Test COVID Minimal";
             lPage.loginToNHSNLinkApp(NHSN_USERNAME, NHSN_PASSWORD);
-            hPage.generateReport("NHSN Medication Administration");
+            hPage.generateReport(reportName,"2021-05-05");
             String note =  hPage.enterNote("Test Automation");
             hPage.submitTheReport(true,"NHSN Medication Administration","0");
             String previousVersion = hPage.getMinorVersion();

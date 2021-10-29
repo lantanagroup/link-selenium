@@ -41,7 +41,7 @@ public class TC08_SaveButton_Test extends BaseClass
         {
             String reportName = "NHSN Medication Administration";
             lPage.loginToNHSNLinkApp(NHSN_USERNAME, NHSN_PASSWORD);
-            hPage.generateReport(reportName);
+            hPage.generateReport(reportName,"2021-05-05");
             Assert.assertFalse(hPage.verifySaveButtonIsEnabled());
             System.out.println("Save Button is Disabled as expected");
             hPage.enterNote("Test Automation");
@@ -53,7 +53,7 @@ public class TC08_SaveButton_Test extends BaseClass
             System.out.println("Save Button is Disabled as expected");
             hPage.enterNote("Test Automation");
             hPage.submitTheReport(true, reportName,"0");
-            hPage.generateReport(reportName);
+            hPage.generateReport(reportName,"2021-05-05");
             hPage.submitTheReport(false, reportName,"0");
         }
         catch(Exception e)

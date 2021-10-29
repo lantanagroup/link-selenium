@@ -34,8 +34,9 @@ public class TC06_VerifySubmitDateOnReviewPage  extends BaseClass {
         lPage = new LoginPage(driver);
         try
         {
+            String reportName = "NHSN Medication Administration";
             lPage.loginToNHSNLinkApp(NHSN_USERNAME, NHSN_PASSWORD);
-            hPage.generateReport("NHSN Medication Administration");
+            hPage.generateReport(reportName,"2021-05-05");
             String note =  hPage.enterNote("Test Automation");
             hPage.submitTheReport(true,"NHSN Medication Administration","0");
             String submittedDate = hPage.verifySubmitDateOnHomePage();

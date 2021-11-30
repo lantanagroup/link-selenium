@@ -11,20 +11,17 @@ import org.testng.annotations.Test;
 import java.sql.SQLOutput;
 
 /*
-1. Log in to NHSN Application
-2. Generate the report
-3. Verify Save button is disabled initially
-4. Enter the Notes Text
-5. verify Save button is enabled
-6. Click on Save button and verify Report saved
-7. Verify Save button is disabled
-8. Enter Notes
-9. Click on Submit Button without saving
-10. It should prompt to save changes first
-11. It should prompt to submit the report if Saved
-12. Report Saved Text is displayed on top right side of the page
-13. Report Sent text is displayed on top right side of the page
-14. Verify Report status is Submitted
+1.Log in to NHSN Application
+2.Generate the report
+3.Verify Default values of Initial Population textbox
+4.Increase the population value more than minimum value
+5.Enter reason for change
+6.Click on Save Button
+7.Verify Report Saved text on top right side of the page
+8.Decrease the Population value back to Minimum value
+9.Verify reason for change textbox is not displayed
+10.Submit the report after the changes
+
  */
 public class TC10_InitialPopulation_Reason extends BaseClass
 {

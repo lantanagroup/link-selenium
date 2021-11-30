@@ -32,6 +32,7 @@ public class BaseClass {
         switch(environment) {
             case "dev" :
                 NHSN_url = "https://dev.nhsnlink.org";
+               // NHSN_url = "https://dev.nhsnlink.lan/";
                 break;
             case "demo" :
                 NHSN_url = "https://demo.nhsnlink.org";

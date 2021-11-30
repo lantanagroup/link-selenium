@@ -11,13 +11,13 @@ import org.testng.annotations.Test;
 import java.sql.SQLOutput;
 
 /*
-1. Log in to NHSN Application
-2. Submit the Report
-3. Verify Submit Date on Home Page
-4. Mouse Hover on Submit Date and Get the Tool tip value
-5. Enter Submit Date on Review Page
-6. Mouse Hover on Submit Date and Get the Tool tip value
-7. Compare Tooltip values of Submit Date for both Home page and Review Page
+1.Log in to NHSN Application
+2.Generate the report
+3.Submit the report
+4.Verify the Minor version is updated
+5.Click on Re-generate button to regenerate the report
+6.Verify Minor version is increase with value 1
+
  */
 
 public class TC11_RegenrateReport extends BaseClass {

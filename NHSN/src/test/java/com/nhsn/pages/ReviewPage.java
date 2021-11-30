@@ -61,7 +61,7 @@ public class ReviewPage {
 
     public void enterSubmitDateOnReviewPage(String date) throws InterruptedException {
 
-        WebElement submitDateTextbox = driver.findElement(By.xpath("//input[@name='dp']"));
+        WebElement submitDateTextbox = driver.findElement(By.xpath("//label[text()='Submitted Date']/following-sibling::ngbd-datepicker-popup//input"));
         char dateArray[] = date.toCharArray();
         for(int i=0;i< dateArray.length;i++)
         {

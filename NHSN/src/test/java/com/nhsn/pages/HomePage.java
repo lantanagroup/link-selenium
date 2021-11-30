@@ -428,7 +428,7 @@ public class HomePage {
     {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='modal-body']/table")));
         System.out.println("View Line Level Data Table exists");
-        List<WebElement> table = driver.findElements(By.xpath("//div[@class='modal-body']/table/thead/tr/th"));
+        List<WebElement> table = driver.findElements(By.xpath("//h6[text()='Patients']/following-sibling::table[1]/thead/tr/th"));
         int noOfColumns = table.size();
         Assert.assertEquals(4,noOfColumns, "No Of columns in the View Line Level Data are not matching");
         ArrayList<String> actualColumns = new ArrayList<String>();
@@ -439,7 +439,7 @@ public class HomePage {
                actualColumns.add(column.getText());
             }
         }
-        List<String> expectedColumns = Arrays.asList("Name", "Sex", "DOB"," ");
+        List<String> expectedColumns = Arrays.asList("Name", "Sex", "DOB","Excluded");
         Assert.assertTrue(expectedColumns.equals(actualColumns), "View Line Level Table column names are not matching");
     }
 
@@ -453,9 +453,10 @@ public class HomePage {
     {
         WebElement initialPopulationtextbox = driver.findElement(By.xpath("//label[text()='Initial Population']/parent::div//app-calculated-field/input"));
         initialPopulationtextbox.clear();
+        initialPopulationtextbox.sendKeys(population);
+        System.out.println("Entered the Population value as "+ population);
         if(!(population.equals("0")))
         {
-           initialPopulationtextbox.sendKeys(population);
            Assert.assertTrue(driver.findElement(By.xpath("//textarea[@placeholder='Please indicate a reason for the change.']")).isDisplayed());
            System.out.println("Please indicate a reason for the change text is displayed as expected");
 
@@ -463,12 +464,14 @@ public class HomePage {
            System.out.println("This field is required text is displayed as expected");
 
             driver.findElement(By.xpath("//textarea[@placeholder='Please indicate a reason for the change.']")).sendKeys("Test Automation");
+            System.out.println("Entered the reason as Test Automation");
         }
         else
         {
             try
             {
-                Assert.assertFalse(driver.findElement(By.xpath("//textarea[@placeholder='Please indicate a reason for the change.']")).isDisplayed());
+                // need to change the code. verify reason for change is disabled when population is 0
+               Assert.assertFalse(driver.findElement(By.xpath("//textarea[@placeholder='Please indicate a reason for the change.']")).isDisplayed());
             }
             catch(Exception e)
             {

@@ -25,6 +25,7 @@ Setup:
 > No API integration included in the Test Suite. 
 > It's pure Web Application automation.
 
+[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job.
 
     [Github]: <https://docs.github.com/en/desktop/installing-and-configuring-github-desktop/installing-and-authenticating-to-github-desktop/installing-github-desktop>
     [IntelliJ]: <https://www.jetbrains.com/idea/download>
